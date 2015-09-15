@@ -1,4 +1,4 @@
-from flask import Flask, session
+from flask import Flask, session, request, abort, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -30,16 +30,31 @@ class Operation(db.Model):
     def __repr__(self):
         return "Operation %s: Input = %s, Output = %s" % (self.id, self.input, self.output)
     
-@app.route("/add_calc", method=["POST"])
-def add_calc():
-    return "hola"
+@app.route("/calc", methods = ["POST"])
+def calc():
+    if not request.form.get('input', False):
+        abort(400)
+    if 'calcs' not in session:
+        session['calcs'] = []
+    calc = {'input': request.form['input'], 
+            'output': eval(request.form['input'])
+    }
+    session["calcs"].append(calc)
+    return jsonify({'output': calc['output'], 'calcs': session["calcs"]})
 
-@app.route("/persist")
-def persist():    
-    return "hola"
+@app.route("/persist/<string:session_name>")
+def persist(session_name):    
+    if 'calcs' in session:
+        s = Session(session_name)
+        db.session.add(s)
+        for calc in session['calcs']:
+            c = Operation(session=s, input=calc.input, output=calc.output)
+            db.session.add(c)
+        db.session.commit()
+    return jsonify({'result': "moortaaal!"})
 
-@app.route("/")
-def get_session():    
+@app.route("/<string:session_name>")
+def get_session(session_name):    
     return "hola"
 
 app.secret_key = 'aafeb9552c67474e9b6ce85f0394aab1'
