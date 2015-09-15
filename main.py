@@ -30,6 +30,18 @@ class Operation(db.Model):
     def __repr__(self):
         return "Operation %s: Input = %s, Output = %s" % (self.id, self.input, self.output)
     
+@app.route("/add_calc", method=["POST"])
+def add_calc():
+    return "hola"
+
+@app.route("/persist")
+def persist():    
+    return "hola"
+
+@app.route("/")
+def get_session():    
+    return "hola"
+
 app.secret_key = 'aafeb9552c67474e9b6ce85f0394aab1'
 
 if __name__ == "__main__":
