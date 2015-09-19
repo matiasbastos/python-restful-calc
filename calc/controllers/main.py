@@ -38,7 +38,7 @@ def get_sessions():
         s = Session.query.all()
         if not s:
             return abort(400, "Nothing to show.")
-        return jsonify({'sessions': s})
+        return jsonify({'sessions': [i.serialize() for i in s]})
     except Exception as e:
         return abort(500, "Error loading session: %s" % str(e))
 
@@ -52,7 +52,7 @@ def get_session(session_name):
         operations = []
         for calc in calcs:
             operations.append("Input: %s, Output: %s" % (calc.input, calc.output))
-        return jsonify({'session': s, 'operations': operations})
+        return jsonify({'session': s.serialize()})
     except Exception as e:
         return abort(500, "Error loading session: %s" % str(e))
 

@@ -11,11 +11,18 @@ class Session(db.Model):
 
     def __repr__(self):
         return "Session: %s" % self.name
+    
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'operations': [i.serialize() for i in self.operations]
+        }
 
 class Operation(db.Model): 
     id = db.Column(db.Integer, primary_key=True)
     session_id = db.Column(db.Integer, db.ForeignKey('session.id'))
-    session = db.relationship('Session', backref=db.backref('operations', lazy='dynamic'))
+    session = db.relationship('Session', backref = db.backref('operations', lazy='dynamic'))
     input = db.Column(db.String(255))
     output = db.Column(db.String(64))
 
@@ -26,3 +33,10 @@ class Operation(db.Model):
 
     def __repr__(self):
         return "Operation %s: Input = %s, Output = %s" % (self.id, self.input, self.output)
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'input': self.input,
+            'output': self.output
+        }
