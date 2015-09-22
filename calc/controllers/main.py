@@ -25,12 +25,12 @@ def add_calc():
             'output': output
     }
     session["calcs"].append(calc)
-    return jsonify({'output': calc['output']})
+    return jsonify({'output': calc['output']}), 201
 
 @main.route("/calcs", methods = ["DELETE"])
 def del_current_calcs():
     session.pop('calcs', None)
-    return jsonify({'success': "Calcs session cleaned."})
+    return jsonify({'message': "Calcs session cleaned."})
 
 @main.route("/sessions", methods = ["GET"])
 def get_sessions():
@@ -67,7 +67,7 @@ def save_session(session_name):
                 db.session.add(c)
             db.session.commit()
             session.pop('calcs', None)
-            return jsonify({'success': "Session saved. id: %s, name: %s)" % (s.id, s.name) })
+            return jsonify({'message': "Session saved. id: %s, name: %s)" % (s.id, s.name) }), 201
         except Exception as e:
             return abort(500, "Error while saving session: %s" % str(e))
     return abort(400, "Nothing to save.")

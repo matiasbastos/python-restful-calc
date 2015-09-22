@@ -12,13 +12,21 @@ def create_app(object_name, env="prod"):
     # define custom errors
     @app.errorhandler(400)
     def custom_error_400(error):
-        response = jsonify({'message': error.description})
+        response = jsonify({
+            'code': 400,
+            'message': 'Error 400 Bad request',
+            'description': error.description,
+        })
         response.status_code = 400
         return response
 
     @app.errorhandler(500)
     def custom_error_500(error):
-        response = jsonify({'message': error.description})
+        response = jsonify({
+            'code': 500,
+            'message': 'Error 500 Internal server error',
+            'description': error.description,
+        })
         response.status_code = 500
         return response
 
