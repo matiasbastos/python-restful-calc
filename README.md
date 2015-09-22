@@ -32,6 +32,8 @@ Para la persistencia de las sesiones de calculo, utilice SQLite, como se sugiere
 Al empezar el proyecto, decidi utilizar solo la funcion "eval()" como interprete de los calculos para concentrarme en la estructura de la api. Porsupuesto que es inaceptable utilizar "eval()" en un server con el riesgo de seguridad que implica. Luego de haber terminado con la estructura de la app, escribi un parser utilizando [tdparser](https://github.com/rbarrois/tdparser) con las operaciones: suma, resta, multiplicacion, division, potencia y logaritmo natural, respetando la procedencia de operadores y con la posibilidad de usar parentesis.
 Finalmente para testing utilice [pytest](https://pytest-flask.readthedocs.org/).
 
+Actualmente este codigo esta corriendo en Heroku: https://ascentio-test.herokuapp.com/
+
 ---
 
 ## Como correr el proyecto
@@ -60,7 +62,7 @@ Ahora la api esta corriendo en el puerto 5000.
 ### Agregar Calculo:
 Endpoint para agregar calculos a la sesion actual. Recibe metodo POST y requiere del parametro "input".
 ```
-POST /calcs/ PARAMS input=log2
+POST /calcs PARAMS input=log2
 ```
 
 Respuesta: JSON
@@ -71,7 +73,90 @@ STATUS 201
 }
 ```
 
+### Obtener Calculos De La Session Actual:
+Endpoint para obtener los calculos a la sesion actual. Metodo GET.
+```
+GET /calcs 
+```
 
+Respuesta: JSON
+```
+STATUS 200
+{
+    "current_session_calcs": [
+        {
+            "input": "log2",
+            "output": 0.6931471805599453
+        }
+    ]
+}
+```
+
+### Guardar Sesion Actual:
+Endpoint para guardar la sesion de calculos actual. Metodo POST.
+```
+POST /sessions/nombre_de_la_sesion
+```
+
+Respuesta: JSON
+```
+STATUS 201
+{
+    "message": "Session saved. id: 1, name: nombre_de_la_sesion"
+}
+```
+
+### Obtener Sesion:
+Endpoint para obtener sesion por su nombre. Metodo GET.
+```
+GET /sessions/nombre_de_la_sesion
+```
+
+Respuesta: JSON
+```
+STATUS 200
+{
+    "session": {
+        "id": 1,
+        "name": "nombre_de_la_sesion",
+        "operations": [
+            {
+                "id": 1,
+                "input": "log2",
+                "output": "0.693147180559945"
+            }
+        ]
+    }
+}
+```
+
+### Obtener Todas Las Sessiones:
+Endpoint para obtener todas las sesiones. Metodo GET.
+```
+GET /sessions
+```
+
+Respuesta: JSON
+```
+STATUS 200
+{
+    "sessions": [
+        {
+            "id": 1,
+            "name": "nombre_de_la_sesion",
+            "operations": [
+                {
+                    "id": 1,
+                    "input": "log2",
+                    "output": "0.693147180559945"
+                }
+            ]
+        }
+    ]
+}
+```
+
+---
 
 ### Unit Testing
 Para ejecutar los tests, escribir lo siguiente en la terminal:
@@ -111,6 +196,18 @@ tests/test_urls.py::TestUrls::test_get_sessions PASSED
 
 ======================================================= 19 passed in 0.72 seconds =======================================================
 ```
+
+---
+
+## Ideas
+Algunas mejoras o caracteristicas que me gustaria agregar:
+- Continuous integration.
+- Documentacion.
+- Cliente Web para la api.
+- Agregar mas operaciones de calculo y constantes.
+- Utilizar acentos y revisar ortografia en este documento :neutral_face:.
+
+
 ## Autor
 
 [Matias Bastos](https://ar.linkedin.com/in/matiasbastos)
