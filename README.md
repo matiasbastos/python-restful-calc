@@ -14,17 +14,15 @@ Escribir una calculadora simple con las siguientes funcionalidades:
     - se tiene que poder persistir una sesión de cálculo. 
     - se tiene que poder recuperar una sesión de cálculo almacenada.
     - Ejemplo: 
-        input: 2+2
-        output: 4
-        input: 5*3*(8-23)
-        output: -225
-        input: guardar sesion1
-        output: sesion1 almacenada
-        input: recuperar sesion1
-        output: 2+2
-                = 4
-                5*3*(8-23)
-                = -225
+        *input: 2+2
+        *output: 4
+        *input: 5*3*(8-23)
+        *output: -225
+        *input: guardar sesion1
+        *output: sesion1 almacenada
+        *input: recuperar sesion1
+        *output: 2+2 = 4
+                 5*3*(8-23) = -225
 
 Idealmente el motor de cálculo de esta aplicación tendría que estar en un servidor de aplicaciones Python, con una base de persistencia liviana, como SQLite o una BD en memoria, y su interfaz tendría que ser REST o Web Service. 
 
@@ -38,8 +36,8 @@ Finalmente para testing utilice [pytest](https://pytest-flask.readthedocs.org/).
 
 ## Como correr el proyecto
 Para correr el proyecto es necesario tener instalado:
-- [Python 3.4.3+](https://www.python.org/downloads/release/python-343/).
-- [PIP](https://pip.pypa.io/en/stable/).
+- [Python 3.4.3 +](https://www.python.org/downloads/release/python-343/)
+- [PIP](https://pip.pypa.io/en/stable/)
 - [VirtualEnv](https://virtualenv.pypa.io/en/latest/)
 
 Para ejecutar el proyecto:
@@ -84,7 +82,7 @@ $ py.test tests -v
 La salida esperada es:
 
 ```
-================================================================================ test session starts ================================================================================
+========================================================== test session starts ==========================================================
 platform darwin -- Python 3.4.3, pytest-2.8.0, py-1.4.30, pluggy-0.3.1 -- /Applications/MAMP/htdocs/ascentio-test/env/bin/python3.4
 cachedir: tests/.cache
 rootdir: /Applications/MAMP/htdocs/ascentio-test/tests, inifile:
@@ -111,7 +109,7 @@ tests/test_urls.py::TestUrls::test_save_session PASSED
 tests/test_urls.py::TestUrls::test_get_session PASSED
 tests/test_urls.py::TestUrls::test_get_sessions PASSED
 
-============================================================================= 19 passed in 0.72 seconds =============================================================================
+======================================================= 19 passed in 0.72 seconds =======================================================
 ```
 ## Autor
 

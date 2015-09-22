@@ -59,6 +59,9 @@ def get_session(session_name):
 @main.route("/sessions/<string:session_name>", methods = ["POST"])
 def save_session(session_name):    
     if 'calcs' in session:
+        s = Session.query.filter_by(name=session_name).first()
+        if s:
+            return abort(500, "The session name '%s' already exists." % session_name)
         try:
             s = Session(session_name)
             db.session.add(s)
@@ -67,7 +70,7 @@ def save_session(session_name):
                 db.session.add(c)
             db.session.commit()
             session.pop('calcs', None)
-            return jsonify({'message': "Session saved. id: %s, name: %s)" % (s.id, s.name) }), 201
+            return jsonify({'message': "Session saved. id: %s, name: %s" % (s.id, s.name) }), 201
         except Exception as e:
             return abort(500, "Error while saving session: %s" % str(e))
     return abort(400, "Nothing to save.")

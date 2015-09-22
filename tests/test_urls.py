@@ -41,7 +41,7 @@ class TestUrls:
         r = testapp.post('/sessions/testsession')
         assert r.status_code == 201
         d = json.loads(r.data.decode("utf-8"))
-        assert d == {'message': 'Session saved. id: 1, name: testsession)'}
+        assert d == {'message': 'Session saved. id: 1, name: testsession'}
 
     def test_get_session(self, testapp):
         r = testapp.post('/calcs',
