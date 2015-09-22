@@ -37,10 +37,10 @@ def get_sessions():
     try:
         s = Session.query.all()
         if not s:
-            return abort(400, "Nothing to show.")
+            raise Exception("Nothing saved yet!")
         return jsonify({'sessions': [i.serialize() for i in s]})
     except Exception as e:
-        return abort(500, "Error loading session: %s" % str(e))
+        return abort(500, "Error loading sessions: %s" % str(e))
 
 @main.route("/sessions/<string:session_name>", methods = ["GET"])
 def get_session(session_name):

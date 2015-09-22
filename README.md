@@ -50,6 +50,7 @@ $ virtualenv-3.4 ./env -p python3.4
 $ source ./env/bin/activate
 $ pip install --upgrade pip
 $ pip install -r requirements.txt
+$ python manage.py createdb
 $ python manage.py runserver
 ```
 
@@ -60,16 +61,19 @@ Ahora la api esta corriendo en el puerto 5000.
 ## Endpoints
 
 ### Agregar Calculo:
-Endpoint para agregar calculos a la sesion actual. Recibe metodo POST y requiere del parametro "input".
+Endpoint para agregar calculos a la sesion actual. Recibe metodo POST y requiere del parametro "input". 
+
+> Importante: El parametro input tiene que ir urlencoded!  "(2+2)*log10/3" => "(2%2b2)*log10/3"
+
 ```
-POST /calcs PARAMS input=log2
+POST /calcs PARAMS input=(2%2b2)*log10/3
 ```
 
 Respuesta: JSON
 ```
 STATUS 201
 {
-    "output": 0.6931471805599453
+    "output": 3.07011345732539453
 }
 ```
 
@@ -85,8 +89,8 @@ STATUS 200
 {
     "current_session_calcs": [
         {
-            "input": "log2",
-            "output": 0.6931471805599453
+            "input": "(2+2)*log10/3",
+            "output": 3.07011345732539453
         }
     ]
 }
@@ -122,8 +126,8 @@ STATUS 200
         "operations": [
             {
                 "id": 1,
-                "input": "log2",
-                "output": "0.693147180559945"
+                "input": "(2+2)*log10/3",
+                "output": "3.0701134573253945"
             }
         ]
     }
@@ -147,8 +151,8 @@ STATUS 200
             "operations": [
                 {
                     "id": 1,
-                    "input": "log2",
-                    "output": "0.693147180559945"
+                    "input": "(2+2)*log10/3",
+                    "output": "3.0701134573253945"
                 }
             ]
         }
@@ -205,7 +209,8 @@ Algunas mejoras o caracteristicas que me gustaria agregar:
 - Documentacion.
 - Cliente Web para la api.
 - Agregar mas operaciones de calculo y constantes.
-- Utilizar acentos y revisar ortografia en este documento :neutral_face:.
+- Mejorar control de errores.
+- Utilizar acentos y revisar ortografia en este documento :neutral_face:
 
 
 ## Autor

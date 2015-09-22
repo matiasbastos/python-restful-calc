@@ -6,12 +6,12 @@ class Config(object):
     SECRET_KEY = 'aafeb9552c67474e9b6ce85f0394aab1'
 
 class ProdConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///../ascentio-test.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///../ascentio-prod.db'
 
 class DevConfig(Config):
     DEBUG = True
     DEBUG_TB_INTERCEPT_REDIRECTS = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///../ascentio-test.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///../ascentio-dev.db'
 
 class TestConfig(Config):
     DEBUG = True
