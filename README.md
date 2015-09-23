@@ -1,6 +1,6 @@
 # Python RESTful Calc
 
-RESTful API en python para hacer calculos matematicos simples: suma, resta, multiplicacion, division, potencia y logaritmo natural.
+RESTful API en python para hacer cálculos matemáticos simples: suma, resta, multiplicación, division, potencia y logaritmo natural.
 
 ## Requerimientos
 Escribir una calculadora simple con las siguientes funcionalidades:
@@ -27,12 +27,12 @@ Escribir una calculadora simple con las siguientes funcionalidades:
 Idealmente el motor de cálculo de esta aplicación tendría que estar en un servidor de aplicaciones Python, con una base de persistencia liviana, como SQLite o una BD en memoria, y su interfaz tendría que ser REST o Web Service. 
 
 ## Solucion
-Para este proyecto opte por utilizar un microframework, [Flask](http://flask.pocoo.org/), ya que lo que necesito es solo exponer los endpoints por protocolo http y brindarle una estructura clara, testeable y eventualmente mantenible a la aplicacion.
+Para este proyecto opte por utilizar un microframework, [Flask](http://flask.pocoo.org/), ya que lo que necesito es solo exponer los endpoints por protocolo http y brindarle una estructura clara, testeable y eventualmente mantenible a la aplicación.
 Para la persistencia de las sesiones de calculo, utilice SQLite, como se sugiere en los requerimientos y utilice [SQLAlchemy](http://www.sqlalchemy.org/) como ORM.
-Al empezar el proyecto, decidi utilizar solo la funcion "eval()" como interprete de los calculos para concentrarme en la estructura de la api. Porsupuesto que es inaceptable utilizar "eval()" en un server con el riesgo de seguridad que implica. Luego de haber terminado con la estructura de la app, escribi un parser utilizando [tdparser](https://github.com/rbarrois/tdparser) con las operaciones: suma, resta, multiplicacion, division, potencia y logaritmo natural, respetando la procedencia de operadores y con la posibilidad de usar parentesis.
+Al empezar el proyecto, decidí utilizar solo la función "eval()" como interprete de los cálculos para concentrarme en la estructura de la api. Por supuesto que es inaceptable utilizar "eval()" en un server con el riesgo de seguridad que implica. Luego de haber terminado con la estructura de la app, escribí un parser utilizando [tdparser](https://github.com/rbarrois/tdparser) con las operaciones: suma, resta, multiplicación, division, potencia y logaritmo natural, respetando la procedencia de operadores y con la posibilidad de usar paréntesis.
 Finalmente para testing utilice [pytest](https://pytest-flask.readthedocs.org/).
 
-Actualmente este codigo esta corriendo en Heroku: https://ascentio-test.herokuapp.com/
+Actualmente este código esta corriendo en Heroku: https://ascentio-test.herokuapp.com/
 
 ---
 
@@ -61,9 +61,10 @@ Ahora la api esta corriendo en el puerto 5000.
 ## Endpoints
 
 ### Agregar Calculo:
-Endpoint para agregar calculos a la sesion actual. Recibe metodo POST y requiere del parametro "input". 
+Endpoint para agregar cálculos a la sesión actual. Recibe método POST y requiere del parámetro "input". 
 
-> Importante: El parametro input tiene que ir urlencoded!  "(2+2)*log10/3" => "(2%2b2)*log10/3"
+> Importante: El parámetro input tiene que ir urlencoded!  "(2+2)*log10/3" => "(2%2b2)*log10/3"
+
 
 ```
 POST /calcs PARAMS input=(2%2b2)*log10/3
@@ -77,8 +78,8 @@ STATUS 201
 }
 ```
 
-### Obtener Calculos De La Session Actual:
-Endpoint para obtener los calculos a la sesion actual. Metodo GET.
+### Obtener Cálculos De La Session Actual:
+Endpoint para obtener los cálculos a la sesión actual. Método GET.
 ```
 GET /calcs 
 ```
@@ -96,8 +97,8 @@ STATUS 200
 }
 ```
 
-### Guardar Sesion Actual:
-Endpoint para guardar la sesion de calculos actual. Metodo POST.
+### Guardar Sesión Actual:
+Endpoint para guardar la sesión de cálculos actual. Método POST.
 ```
 POST /sessions/nombre_de_la_sesion
 ```
@@ -110,8 +111,8 @@ STATUS 201
 }
 ```
 
-### Obtener Sesion:
-Endpoint para obtener sesion por su nombre. Metodo GET.
+### Obtener Sesión:
+Endpoint para obtener sesión por su nombre. Método GET.
 ```
 GET /sessions/nombre_de_la_sesion
 ```
@@ -134,8 +135,8 @@ STATUS 200
 }
 ```
 
-### Obtener Todas Las Sessiones:
-Endpoint para obtener todas las sesiones. Metodo GET.
+### Obtener Todas Las Sesiones:
+Endpoint para obtener todas las sesiones. Método GET.
 ```
 GET /sessions
 ```
@@ -204,13 +205,12 @@ tests/test_urls.py::TestUrls::test_get_sessions PASSED
 ---
 
 ## Ideas
-Algunas mejoras o caracteristicas que me gustaria agregar:
+Algunas mejoras o características que me gustaría agregar:
 - Continuous integration.
-- Documentacion.
+- Documentación.
 - Cliente Web para la api.
 - Agregar mas operaciones de calculo y constantes.
 - Mejorar control de errores.
-- Utilizar acentos y revisar ortografia en este documento :neutral_face:
 
 
 ## Autor
