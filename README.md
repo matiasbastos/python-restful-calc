@@ -26,11 +26,11 @@ Escribir una calculadora simple con las siguientes funcionalidades:
 
 Idealmente el motor de cálculo de esta aplicación tendría que estar en un servidor de aplicaciones Python, con una base de persistencia liviana, como SQLite o una BD en memoria, y su interfaz tendría que ser REST o Web Service. 
 
-## Solucion
+## Solución
 Para este proyecto opte por utilizar un microframework, [Flask](http://flask.pocoo.org/), ya que lo que necesito es solo exponer los endpoints por protocolo http y brindarle una estructura clara, testeable y eventualmente mantenible a la aplicación.
 Para la persistencia de las sesiones de calculo, utilice SQLite, como se sugiere en los requerimientos y utilice [SQLAlchemy](http://www.sqlalchemy.org/) como ORM.
 Al empezar el proyecto, decidí utilizar solo la función "eval()" como interprete de los cálculos para concentrarme en la estructura de la api. Por supuesto que es inaceptable utilizar "eval()" en un server con el riesgo de seguridad que implica. Luego de haber terminado con la estructura de la app, escribí un parser utilizando [tdparser](https://github.com/rbarrois/tdparser) con las operaciones: suma, resta, multiplicación, division, potencia y logaritmo natural, respetando la procedencia de operadores y con la posibilidad de usar paréntesis.
-Finalmente para testing utilice [pytest](https://pytest-flask.readthedocs.org/).
+Finalmente para testing utilice [pytest](https://pytest-flask.readthedocs.org/) y autopep8 para validar que el codigo cumpla el standard PEP8.
 
 Actualmente este código esta corriendo en Heroku: https://ascentio-test.herokuapp.com/
 
