@@ -2,16 +2,17 @@ from flask.ext.sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
 class Session(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True)
 
     def __init__(self, name):
-        self.name  = name
+        self.name = name
 
     def __repr__(self):
         return "Session: %s" % self.name
-    
+
     def serialize(self):
         return {
             'id': self.id,
@@ -19,10 +20,12 @@ class Session(db.Model):
             'operations': [i.serialize() for i in self.operations]
         }
 
-class Operation(db.Model): 
+
+class Operation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     session_id = db.Column(db.Integer, db.ForeignKey('session.id'))
-    session = db.relationship('Session', backref = db.backref('operations', lazy='dynamic'))
+    session = db.relationship(
+        'Session', backref=db.backref('operations', lazy='dynamic'))
     input = db.Column(db.String(255))
     output = db.Column(db.String(64))
 
