@@ -5,6 +5,7 @@ from calc.models import db, Session, Operation
 
 @pytest.mark.usefixtures("testapp")
 class TestModels:
+
     def test_session_save(self, testapp):
         """ Test Session model to the database """
 

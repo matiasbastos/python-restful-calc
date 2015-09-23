@@ -2,29 +2,33 @@ import pytest
 import json
 from .conftests import testapp
 
+
 @pytest.mark.usefixtures("testapp")
 class TestUrls:
+
     def test_add_calc(self, testapp):
         r = testapp.post('/calcs',
-            data = {'input': 'log2'}, 
-        )
+                         data={'input': 'log2'},
+                         )
         assert r.status_code == 201
-        assert json.loads(r.data.decode("utf-8")) == {'output': 0.6931471805599453}
+        assert json.loads(r.data.decode("utf-8")
+                          ) == {'output': 0.6931471805599453}
 
     def test_get_current_calcs(self, testapp):
         r = testapp.post('/calcs',
-            data = {'input': 'log2'}, 
-        )
+                         data={'input': 'log2'},
+                         )
         assert r.status_code == 201
         r = testapp.get('/calcs')
         assert r.status_code == 200
         d = json.loads(r.data.decode("utf-8"))
-        assert d == {'current_session_calcs': [{'input': 'log2', 'output': 0.6931471805599453}]}
+        assert d == {'current_session_calcs': [
+            {'input': 'log2', 'output': 0.6931471805599453}]}
 
     def test_get_clean_current_calcs(self, testapp):
         r = testapp.post('/calcs',
-            data = {'input': 'log2'}, 
-        )
+                         data={'input': 'log2'},
+                         )
         assert r.status_code == 201
         r = testapp.get('/calcs')
         assert r.status_code == 200
@@ -35,8 +39,8 @@ class TestUrls:
 
     def test_save_session(self, testapp):
         r = testapp.post('/calcs',
-            data = {'input': 'log2'}, 
-        )
+                         data={'input': 'log2'},
+                         )
         assert r.status_code == 201
         r = testapp.post('/sessions/testsession')
         assert r.status_code == 201
@@ -45,8 +49,8 @@ class TestUrls:
 
     def test_get_session(self, testapp):
         r = testapp.post('/calcs',
-            data = {'input': 'log2'}, 
-        )
+                         data={'input': 'log2'},
+                         )
         assert r.status_code == 201
         r = testapp.post('/sessions/testsession')
         assert r.status_code == 201
@@ -61,12 +65,12 @@ class TestUrls:
 
     def test_get_sessions(self, testapp):
         r = testapp.post('/calcs',
-            data = {'input': '2+2'}, 
-        )
+                         data={'input': '2+2'},
+                         )
         assert r.status_code == 201
         r = testapp.post('/calcs',
-            data = {'input': 'log2'}, 
-        )
+                         data={'input': 'log2'},
+                         )
         assert r.status_code == 201
         r = testapp.post('/sessions/testsession')
         assert r.status_code == 201

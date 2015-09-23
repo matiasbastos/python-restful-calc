@@ -2,8 +2,10 @@ import pytest
 from .conftests import testapp
 from calc.parser import parse
 
+
 @pytest.mark.usefixtures("testapp")
 class TestClasses:
+
     def test_parser_sum(self, testapp):
         c = parse('2+2')
         assert c == 4
