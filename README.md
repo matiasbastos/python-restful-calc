@@ -46,8 +46,8 @@ Para correr el proyecto es necesario tener instalado:
 
 Para ejecutar el proyecto:
 ```
-$ git clone https://gitlab.com/matias-bastos/ascentio-test.git
-$ cd ascentio-test
+$ git clone https://github.com/matiasbastos/python-restful-calc.git
+$ cd python-restful-calc
 $ virtualenv-3.4 ./env -p python3.4
 $ source ./env/bin/activate
 $ pip install --upgrade pip
